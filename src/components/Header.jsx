@@ -1,5 +1,7 @@
 import "boxicons/css/boxicons.min.css";
 import { useEffect, useRef, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const LINKS = [
   { id: "home", label: "Home" },
@@ -35,15 +37,46 @@ const Header = () => {
     return () => window.removeEventListener("resize", updateIndicator);
   }, [activeLink]);
 
+  useEffect(() => {
+    AOS.init({ duration: 1500, easing: "linear", offset: 120, once: true });
+  }, []);
+
+  useEffect(() => {
+    const sections = LINKS.map((link) => document.getElementById(link.id)).filter(Boolean);
+
+    if (sections.length === 0) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveLink(entry.target.id);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "-40% 0px -50% 0px",
+        threshold: 0.1,
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
   const getLinkClasses = (link) => {
     const isActive = activeLink === link;
-    return `text-base tracking-wider transition-colors duration-300 px-6 py-2 rounded-full relative z-10 ${isActive ? "text-black" : "text-white hover:text-gray-300"}`;
+    return `text-sm md:text-base tracking-wider px-4 md:px-5 lg:px-6 py-2 rounded-full relative z-10 ${isActive ? "text-black" : "text-white hover:text-gray-300"}`;
   };
   return (
-    <header className="relative z-20 flex items-center py-6 px-4 lg:px-4 w-full justify-between md:justify-center">
+    <header data-aos="fade-down" data-aos-offset="120" data-aos-easing="linear" data-aos-delay="300" className="fixed top-[22px] left-0 right-0 z-20 flex items-center px-2 sm:px-4 lg:px-4 w-full justify-between md:justify-center">
       <nav className="hidden md:block">
         <div className="rounded-full py-1 border border-white/30 bg-white/15 shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.2px]">
-          <ul ref={listRef} className="relative flex gap-3 lg:gap-2 m-0 p-1 list-none">
+          <ul ref={listRef} className="relative flex gap-2 lg:gap-2 m-0 p-1 list-none">
             <span className="pointer-events-none absolute left-0 top-0 h-full rounded-2xl bg-white transition-[transform,width] duration-300 ease-out" style={indicatorStyle} />
             {LINKS.map((link, index) => (
               <li key={link.id} ref={(el) => (itemRefs.current[index] = el)} className="text-center">
@@ -73,7 +106,7 @@ const Header = () => {
                   setActiveLink(link.id);
                   setIsMenuOpen(false);
                 }}
-                className={`block w-full px-4 py-2 rounded-2xl text-base tracking-wider transition-colors duration-300 ${activeLink === link.id ? "bg-white text-black" : "text-white hover:text-gray-300"}`}
+                className={`block w-full px-4 py-2 rounded-2xl text-base tracking-wider ${activeLink === link.id ? "bg-white text-black" : "text-white hover:text-gray-300"}`}
               >
                 {link.label}
               </a>

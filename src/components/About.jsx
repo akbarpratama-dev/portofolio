@@ -1,0 +1,160 @@
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Download } from "lucide-react";
+import TiltedCard from "@/components/ui/TiltedCard";
+import profileImg from "@/assets/oijio.png";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const About = () => {
+  const sectionRef = useRef(null);
+  const titleRef = useRef(null);
+  const textRef = useRef(null);
+  const statsRef = useRef(null);
+  const btnRef = useRef(null);
+  const photoRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      tl.from(titleRef.current, {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+      })
+        .from(
+          photoRef.current,
+          {
+            scale: 0.8,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+          },
+          "-=0.4",
+        )
+        .from(
+          textRef.current,
+          {
+            x: -50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+          },
+          "-=0.6",
+        )
+        .from(
+          statsRef.current.children,
+          {
+            y: 40,
+            opacity: 0,
+            duration: 0.9,
+            stagger: 0.2,
+            ease: "power3.out",
+          },
+          "-=0.4",
+        )
+        .from(
+          btnRef.current,
+          {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          "-=0.3",
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={sectionRef} id="about" className="relative scroll-mt-24 px-6 sm:px-10 lg:ml-20 lg:mr-20 py-20 lg:py-32">
+      {/* 2-Column Layout */}
+      <div className="flex flex-col-reverse lg:flex-row items-center lg:items-start gap-12 lg:gap-10 lg:pl-12">
+        {/* Left Column — Profile Photo (Glass Card) */}
+        <div ref={photoRef} className="flex-shrink-0">
+          <TiltedCard
+            imageSrc={profileImg}
+            altText="Akbar Pratama"
+            captionText=""
+            containerHeight="clamp(270px, 36vw, 330px)"
+            containerWidth="clamp(220px, 30vw, 270px)"
+            imageHeight="clamp(270px, 36vw, 300px)"
+            imageWidth="clamp(220px, 30vw, 270px)"
+            rotateAmplitude={26}
+            scaleOnHover={1.05}
+            showMobileWarning={false}
+            showTooltip={false}
+            displayOverlayContent={false}
+            className=""
+            cardClassName="border border-white/10 bg-white/5 backdrop-blur-xl p-3 shadow-[0_0_50px_-12px_rgba(233,155,99,0.2)]"
+          />
+        </div>
+
+        {/* Right Column — Text */}
+        <div className="flex-1 text-center lg:text-left ml-0 lg:ml-3">
+          {/* Section Title */}
+          <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl font-bold text-center lg:text-left mb-6">
+            <span className="text-white">About Me</span>
+          </h2>
+
+          <div ref={textRef}>
+            <p className="text-sm sm:text-base md:text-[1rem] text-white/80 leading-relaxed">
+              Hi, I'm <span className="text-orange-400 font-semibold">Muhammad Akbar Pratama Hantoro</span>, an Informatics undergraduate with a strong interest in web development and modern technologies. I focus on building scalable web
+              applications using <span className="text-white font-medium">React</span> for the frontend and <span className="text-white font-medium">Laravel</span> for backend APIs, combining performance, structure, and user experience in
+              every project.
+            </p>
+          </div>
+
+          {/* Stats */}
+          <div ref={statsRef} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 sm:gap-8 mt-8">
+            <div className="flex items-center gap-3">
+              <span className="text-3xl sm:text-4xl font-bold text-orange-400">5+</span>
+              <span className="text-sm sm:text-base text-white/70 leading-tight text-left">
+                Completed
+                <br />
+                Projects
+              </span>
+            </div>
+
+            <div className="hidden sm:block h-10 w-px bg-white/15"></div>
+
+            <div className="flex items-center gap-3">
+              <span className="text-3xl sm:text-4xl font-bold text-orange-400">1+</span>
+              <span className="text-sm sm:text-base text-white/70 leading-tight text-left">
+                Years of
+                <br />
+                Experience
+              </span>
+            </div>
+          </div>
+
+          {/* Download CV Button */}
+          <div ref={btnRef} className="flex justify-center lg:justify-start mt-7">
+            <a
+              href="/cv.pdf"
+              download
+              className="group inline-flex items-center gap-2 rounded-full border border-orange-400/40 bg-orange-500/10 backdrop-blur-md px-4 py-2 text-orange-400 font-medium transition-all duration-300 hover:bg-orange-500/20 hover:border-orange-400/60 hover:shadow-[0_0_20px_-5px_rgba(233,155,99,0.3)]"
+            >
+              <Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-0.5" />
+              Download CV
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default About;

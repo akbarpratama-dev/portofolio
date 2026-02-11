@@ -7,3 +7,20 @@
     @apply bg-black text-white relative overflow-x-hidden font-sans h-screen;
   }
 }
+
+@keyframes glow-sway {
+  0% {
+    transform: translateX(-18px) rotate(-60deg);
+  }
+  50% {
+    transform: translateX(18px) rotate(-60deg);
+  }
+  100% {
+    transform: translateX(-18px) rotate(-60deg);
+  }
+}
+
+.glow-sway {
+  animation: glow-sway 4s ease-in-out infinite;
+  will-change: transform;
+}
