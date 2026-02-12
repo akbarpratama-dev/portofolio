@@ -25,10 +25,8 @@ const TiltedCard = ({
     const rect = containerRef.current.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateY = ((x - centerX) / centerX) * rotateAmplitude;
-    const rotateX = -((y - centerY) / centerY) * rotateAmplitude;
+    const rotateY = (x / rect.width - 0.5) * 2 * rotateAmplitude;
+    const rotateX = (0.5 - y / rect.height) * 2 * rotateAmplitude;
 
     setTransform(`rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scaleOnHover})`);
   };
@@ -38,7 +36,7 @@ const TiltedCard = ({
   };
 
   return (
-    <div ref={containerRef} className={`relative perspective-[900px] ${className}`} style={{ width: containerWidth, height: containerHeight }} onMouseMove={handleMove} onMouseLeave={handleLeave}>
+    <div ref={containerRef} className={`relative ${className}`} style={{ width: containerWidth, height: containerHeight, perspective: "900px" }} onMouseMove={handleMove} onMouseLeave={handleLeave}>
       <div className={`relative h-full w-full rounded-2xl transition-transform duration-500 ease-out will-change-transform ${cardClassName}`} style={{ transform, transformStyle: "preserve-3d" }}>
         <img src={imageSrc} alt={altText} className="rounded-xl object-cover" style={{ width: imageWidth, height: imageHeight }} />
 

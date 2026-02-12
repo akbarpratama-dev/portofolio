@@ -46,7 +46,7 @@ const Hero = () => {
       <div data-aos="fade-right" data-aos-offset="0" data-aos-easing="ease-in-sine" className="text-center lg:text-left mx-auto lg:mx-0 lg:ml-[7rem] px-4 lg:px-0 max-w-3xl flex flex-col gap-4 lg:gap-3">
         <WordPullUp key={TITLES[titleIndex]} words={TITLES[titleIndex]} className="text-base sm:text-lg md:text-xl lg:text-xl text-white font-[600] text-center lg:text-left leading-normal mt-20" />
         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-orange-400 font-[500] leading-tight">
-          Hello I'm
+          Hello, I'm
           <br />
           <span className="text-white font-[600] mb-8">Akbar Pratama</span>
         </h1>
