@@ -8,8 +8,8 @@ const AnimatedTabs = ({ tabs = [], defaultTab, className }) => {
   if (!tabs?.length) return null;
 
   return (
-    <div className={cn("w-full flex flex-col gap-y-2", className)}>
-      <div className="flex gap-2 flex-wrap bg-[#11111198] shadow-[0_0_20px_rgba(0,0,0,0.2)] text-white bg-opacity-50 backdrop-blur-sm border border-white/10 p-1 rounded-xl">
+    <div className={cn("w-full flex flex-col gap-y-1", className)}>
+      <div className="flex gap-2 flex-wrap bg-[#11111198] bg-opacity-50 backdrop-blur-sm p-1 rounded-xl">
         {tabs.map((tab) => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={cn("relative px-3 py-1.5 text-sm font-medium rounded-lg text-white outline-none transition-colors")}>
             {activeTab === tab.id && (

@@ -158,7 +158,7 @@ const Projects = () => {
       });
 
       // animate title, then add a short delay before animating tabs
-      tl.to(titleRef.current, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }).to(tabsRef.current, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, "+=0.4");
+      tl.to(titleRef.current, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }).to(tabsRef.current, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, "+=0.25");
     }, sectionRef);
 
     return () => ctx.revert();

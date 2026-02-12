@@ -42,30 +42,24 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    const sections = LINKS.map((link) => document.getElementById(link.id)).filter(Boolean);
+    const onScroll = () => {
+      const scrollY = window.scrollY + window.innerHeight * 0.35;
 
-    if (sections.length === 0) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visible.length > 0) {
-          setActiveLink(visible[0].target.id);
+      let current = "home";
+      for (const link of LINKS) {
+        const el = document.getElementById(link.id);
+        if (el && el.offsetTop <= scrollY) {
+          current = link.id;
         }
-      },
-      {
-        root: null,
-        rootMargin: "-30% 0px -55% 0px",
-        threshold: [0.1, 0.25, 0.5, 0.75],
-      },
-    );
+      }
 
-    sections.forEach((section) => observer.observe(section));
+      setActiveLink(current);
+    };
 
-    return () => observer.disconnect();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // set initial
+
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const getLinkClasses = (link) => {
