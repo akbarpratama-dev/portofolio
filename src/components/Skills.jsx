@@ -13,6 +13,7 @@ const SKILLS = [
   { name: "Python", icon: "bxl-python", color: "#3776AB" },
   { name: "Java", icon: "bxl-java", color: "#ED8B00" },
   { name: "React", icon: "bxl-react", color: "#61DAFB" },
+  { name: "Node.js", icon: "bxl-nodejs", color: "#43853D" },
   {
     name: "Laravel",
     icon: null,
@@ -94,6 +95,19 @@ const SKILLS = [
         <rect x="2" y="2" width="20" height="20" rx="3" fill="#31A8FF" />
         <text x="12" y="16" textAnchor="middle" fontSize="9" fill="#fff" fontFamily="Arial,Helvetica,sans-serif">
           Ps
+        </text>
+      </svg>
+    ),
+  },
+  {
+    name: "Illustrator",
+    icon: null,
+    color: "#FF9A00",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-9 h-9 sm:w-12 sm:h-12" fill="none">
+        <rect x="2" y="2" width="20" height="20" rx="3" fill="#FF9A00" />
+        <text x="12" y="16" textAnchor="middle" fontSize="9" fill="#fff" fontFamily="Arial,Helvetica,sans-serif">
+          Ai
         </text>
       </svg>
     ),
@@ -254,9 +268,9 @@ const Skills = () => {
 
           {/* GitHub Streak Stats */}
           <div className="mt-6 flex justify-center">
-            <img 
-              src="https://github-readme-streak-stats.herokuapp.com/?user=akbarpratama-dev&theme=dark&hide_border=true&background=ffffff00&ring=f97316&fire=f97316&currStreakLabel=ffffff&sideLabels=ffffff&currStreakNum=ffffff&sideNums=ffffff&dates=ffffff80" 
-              alt="GitHub Streak Stats" 
+            <img
+              src="https://github-readme-streak-stats.herokuapp.com/?user=akbarpratama-dev&theme=dark&hide_border=true&background=ffffff00&ring=f97316&fire=f97316&currStreakLabel=ffffff&sideLabels=ffffff&currStreakNum=ffffff&sideNums=ffffff&dates=ffffff80"
+              alt="GitHub Streak Stats"
               className="max-w-full h-auto rounded-lg"
             />
           </div>
