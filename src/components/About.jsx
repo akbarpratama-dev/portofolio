@@ -55,9 +55,9 @@ const About = () => {
   }, [isDesktop]);
 
   return (
-    <section ref={sectionRef} id="about" className="relative w-full min-h-screen flex items-center scroll-mt-24 px-6 sm:px-10 lg:ml-20 lg:mr-20 py-20 lg:py-32">
+    <section ref={sectionRef} id="about" className="relative w-full min-h-screen flex items-center scroll-mt-24 px-6 sm:px-10 lg:px-20 py-20 lg:py-32">
       {/* 2-Column Layout */}
-      <div className="flex flex-col-reverse lg:flex-row items-center lg:items-start gap-12 lg:gap-10 lg:pl-12">
+      <div className="w-full max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center lg:items-start gap-12 lg:gap-16">
         {/* Left Column — Profile Photo (Glass Card) */}
         {isDesktop && (
           <div ref={photoRef} className="flex-shrink-0">
@@ -81,7 +81,7 @@ const About = () => {
         )}
 
         {/* Right Column — Text */}
-        <div className="flex-1 text-center lg:text-left ml-0 lg:ml-3">
+        <div className="flex-1 text-center lg:text-left max-w-2xl">
           {/* Section Title */}
           <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl font-bold text-center lg:text-left mb-6 translate-y-[50px]">
             <span className="text-white">About Me</span>

@@ -1,5 +1,4 @@
-import { useEffect, useRef } from "react";
-import Lenis from "lenis";
+import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Header from "./components/Header";
@@ -15,49 +14,43 @@ import ParticleBackground from "./components/ui/ParticleBackground";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
-  const lenisRef = useRef(null);
-
   useEffect(() => {
-    // Initialize Lenis smooth scroll
-    const lenis = new Lenis({
-      duration: 1.2, // Scroll duration (higher = slower/heavier)
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 0.8, // Lower = heavier scroll
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
-    });
-
-    lenisRef.current = lenis;
-
-    // Sync Lenis with GSAP ScrollTrigger
-    lenis.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-
-    gsap.ticker.lagSmoothing(0);
-
-    // Cleanup
-    return () => {
-      lenis.destroy();
-      gsap.ticker.remove(lenis.raf);
-    };
+    // Refresh ScrollTrigger on mount to sync with native scroll
+    ScrollTrigger.refresh();
   }, []);
+
   return (
     <main className="relative min-h-screen overflow-hidden">
       <ParticleBackground />
       <CustomCursor />
 
-      {/* Random glow effects */}
+      {/* Random glow effects - Safari compatible */}
+      <div
+        className="fixed top-[75%] left-[-8%] w-[20rem] h-[20rem] rounded-full -z-10 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at 40% 40%, rgba(233,155,99,0.4), rgba(233,155,99,0.15) 35%, transparent 65%)",
+          filter: "blur(60px)",
+          transform: "rotate(-60deg)",
+        }}
+      />
 
-      <div className="glow-sway h-0 w-[30rem] fixed top-[75%] left-[-8%] shadow-[0_0_700px_25px_#e99b63] -rotate-[60deg] -z-10 pointer-events-none"></div>
+      <div
+        className="fixed top-[75%] right-[-8%] w-[20rem] h-[20rem] rounded-full -z-10 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at 40% 40%, rgba(233,155,99,0.4), rgba(233,155,99,0.15) 35%, transparent 65%)",
+          filter: "blur(60px)",
+          transform: "rotate(-60deg)",
+        }}
+      />
 
-      <div className="glow-sway h-0 w-[40rem] fixed top-[2%] right-[-11%] shadow-[0_0_900px_30px_#e99b63] -rotate-[90deg] -z-10 pointer-events-none"></div>
+      <div
+        className="fixed top-[2%] right-[-11%] w-[24rem] h-[24rem] rounded-full -z-10 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at 40% 40%, rgba(233,155,99,0.45), rgba(233,155,99,0.18) 35%, transparent 70%)",
+          filter: "blur(70px)",
+          transform: "rotate(-90deg)",
+        }}
+      />
 
       <Header />
       <Hero />

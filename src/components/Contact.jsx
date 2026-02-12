@@ -57,7 +57,7 @@ const Contact = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="contact" className="relative w-full min-h-[20vh] flex items-start scroll-mt-24 px-6 sm:px-10 lg:px-20 pt-20 pb-0 lg:pt-32 lg:pb-0">
+    <section ref={sectionRef} id="contact" className="relative w-full min-h-[50vh] lg:min-h-[20vh]  flex items-start scroll-mt-24 px-6 sm:px-10 lg:px-20 pt-20 pb-0 lg:pt-32 lg:pb-0">
       <div className="max-w-4xl mx-auto">
         <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6">
           <span className="text-white">Let's Work </span>
