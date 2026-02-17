@@ -132,13 +132,12 @@ const Skills = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          end: "bottom 80%",
+          scrub: 1,
         },
       });
 
-      tl.to(titleRef.current, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" })
-        .to(gridRef.current.children, { y: 0, opacity: 1, scale: 1, stagger: 0.04, duration: 0.4, ease: "power2.out" }, "-=0.3")
-        .to(githubRef.current, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, "-=0.2");
+      tl.to(titleRef.current, { y: 0, opacity: 1, duration: 1 }).to(gridRef.current.children, { y: 0, opacity: 1, scale: 1, stagger: 0.1, duration: 1 }, "-=0.5").to(githubRef.current, { y: 0, opacity: 1, duration: 1 }, "-=0.5");
     }, sectionRef);
 
     return () => ctx.revert();
@@ -211,7 +210,7 @@ const Skills = () => {
   };
 
   return (
-    <section ref={sectionRef} id="skills" className="relative w-full min-h-screen scroll-mt-24 px-6 sm:px-10 lg:px-20 py-20 lg:py-32">
+    <section ref={sectionRef} id="skills" className="relative w-full min-h-screen scroll-mt-24 px-8 sm:px-12 lg:px-24 py-20 lg:py-32">
       <div className="w-full max-w-5xl mx-auto">
         <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-14">
           <span className="text-white">My </span>

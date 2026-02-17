@@ -44,20 +44,21 @@ const Contact = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          end: "bottom 80%",
+          scrub: 1,
         },
       });
 
-      tl.to(titleRef.current, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" })
-        .to(descRef.current, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, "-=0.3")
-        .fromTo(".contact-icon", { y: 30, opacity: 0, scale: 0.8 }, { y: 0, opacity: 1, scale: 1, stagger: 0.1, duration: 0.5, ease: "power2.out" }, "-=0.2");
+      tl.to(titleRef.current, { y: 0, opacity: 1, duration: 1 })
+        .to(descRef.current, { y: 0, opacity: 1, duration: 1 }, "-=0.5")
+        .fromTo(".contact-icon", { y: 30, opacity: 0, scale: 0.8 }, { y: 0, opacity: 1, scale: 1, stagger: 0.1, duration: 1, ease: "power2.out" }, "-=0.5");
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} id="contact" className="relative w-full min-h-[50vh] lg:min-h-[20vh]  flex items-start scroll-mt-24 px-6 sm:px-10 lg:px-20 pt-20 pb-0 lg:pt-32 lg:pb-0">
+    <section ref={sectionRef} id="contact" className="relative w-full min-h-screen flex items-center justify-center scroll-mt-24 px-8 sm:px-12 lg:px-24 py-20 lg:py-32">
       <div className="max-w-4xl mx-auto">
         <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6">
           <span className="text-white">Let's Work </span>

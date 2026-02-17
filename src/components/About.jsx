@@ -36,28 +36,25 @@ const About = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          end: "bottom 80%",
+          scrub: 1, // Tie animation availability to scrollbar position
         },
       });
 
-      tl.to(titleRef.current, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" });
-
-      if (photoRef.current) {
-        tl.fromTo(photoRef.current, { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: "power2.out" }, "-=0.3");
-      }
-
-      tl.to(textRef.current, { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, "-=0.3")
-        .to(statsRef.current.children, { y: 0, opacity: 1, stagger: 0.1, duration: 0.5, ease: "power2.out" }, "-=0.2")
-        .to(btnRef.current, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, "-=0.2");
+      tl.to(titleRef.current, { y: 0, opacity: 1, duration: 1 })
+        .to(photoRef.current, { scale: 1, opacity: 1, duration: 1 }, "-=0.5")
+        .to(textRef.current, { x: 0, opacity: 1, duration: 1 }, "-=0.5")
+        .to(statsRef.current.children, { y: 0, opacity: 1, stagger: 0.2, duration: 1 }, "-=0.5")
+        .to(btnRef.current, { y: 0, opacity: 1, duration: 1 }, "-=0.5");
     }, sectionRef);
 
     return () => ctx.revert();
   }, [isDesktop]);
 
   return (
-    <section ref={sectionRef} id="about" className="relative w-full min-h-screen flex items-center scroll-mt-24 px-6 sm:px-10 lg:px-40 py-20 lg:py-32">
+    <section ref={sectionRef} id="about" className="relative w-full min-h-screen flex items-center scroll-mt-24 px-8 sm:px-12 lg:px-24 py-20 lg:py-32">
       {/* 2-Column Layout */}
-      <div className="w-full max-w-auto lg:ml-auto flex flex-col-reverse lg:flex-row items-center lg:items-start gap-12 lg:gap-16">
+      <div className="w-full max-w-auto flex flex-col-reverse lg:flex-row items-start gap-12 lg:gap-16">
         {/* Left Column — Profile Photo (Glass Card) */}
         {isDesktop && (
           <div ref={photoRef} className="flex-shrink-0">
@@ -81,13 +78,13 @@ const About = () => {
         )}
 
         {/* Right Column — Text */}
-        <div className="flex-1 text-center lg:text-left max-w-full ">
+        <div className="flex-1 text-left max-w-full ">
           {/* Section Title */}
-          <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl font-bold text-center lg:text-left mb-6 translate-y-[50px]">
+          <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl font-bold text-left mb-6 translate-y-[50px]">
             <span className="text-white">About Me</span>
           </h2>
 
-          <div ref={textRef} className="-translate-x-[60px]">
+          <div ref={textRef} className="">
             <p className="text-sm sm:text-base md:text-[1rem] text-white/80 leading-relaxed">
               Hi, I'm <span className="text-orange-400 font-semibold">Muhammad Akbar Pratama Hantoro</span>, an Informatics undergraduate with a strong interest in web development and modern technologies. I focus on building scalable web
               applications using <span className="text-white font-medium">React</span> for the frontend and <span className="text-white font-medium">Laravel</span> for backend APIs, combining performance, structure, and user experience in
@@ -96,7 +93,7 @@ const About = () => {
           </div>
 
           {/* Stats */}
-          <div ref={statsRef} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 sm:gap-8 mt-8 [&>*]:translate-y-[40px]">
+          <div ref={statsRef} className="flex flex-col sm:flex-row items-center justify-start gap-6 sm:gap-8 mt-8 [&>*]:translate-y-[40px]">
             <div className="flex items-center gap-3">
               <span className="text-3xl sm:text-4xl font-bold text-orange-400">5+</span>
               <span className="text-sm sm:text-base text-white/70 leading-tight text-left">
@@ -119,7 +116,7 @@ const About = () => {
           </div>
 
           {/* Download CV Button */}
-          <div ref={btnRef} className="flex justify-center lg:justify-start mt-7 translate-y-[30px]">
+          <div ref={btnRef} className="flex justify-start mt-7 translate-y-[30px]">
             <a
               href="/cv.pdf"
               download
