@@ -43,13 +43,20 @@ const Header = () => {
 
   useEffect(() => {
     const onScroll = () => {
-      const scrollY = window.scrollY + window.innerHeight * 0.35;
+      // Use a consistent threshold for section activation
+      const threshold = 150;
 
-      let current = "home";
+      let current = LINKS[0].id;
+
+      // Get all sections and find which one is most visible or crossing the threshold
       for (const link of LINKS) {
         const el = document.getElementById(link.id);
-        if (el && el.offsetTop <= scrollY) {
-          current = link.id;
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          // If the top of the section is above the threshold, it might be the current one
+          if (rect.top <= threshold) {
+            current = link.id;
+          }
         }
       }
 
@@ -57,9 +64,13 @@ const Header = () => {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll(); // set initial
+    // Run once after a short delay to ensure everything is mounted and GSAP has run
+    const timeoutId = setTimeout(onScroll, 100);
 
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const getLinkClasses = (link) => {
