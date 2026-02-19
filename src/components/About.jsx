@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Download } from "lucide-react";
 import TiltedCard from "@/components/ui/TiltedCard";
-import profileImg from "@/assets/oijio.png";
+import profileImg from "@/assets/Group 14.png";
 
 gsap.registerPlugin(ScrollTrigger);
 

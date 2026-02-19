@@ -18,74 +18,86 @@ const Header = () => {
   const listRef = useRef(null);
   const itemRefs = useRef([]);
 
+  // Control indicator pill position
   useEffect(() => {
     const updateIndicator = () => {
       const index = LINKS.findIndex((link) => link.id === activeLink);
+      if (index === -1) return;
+
       const item = itemRefs.current[index];
       const list = listRef.current;
-      if (!item || !list) {
-        return;
+
+      if (item && list) {
+        setIndicatorStyle({
+          width: item.offsetWidth,
+          transform: `translateX(${item.offsetLeft}px)`,
+        });
       }
-      setIndicatorStyle({
-        width: item.offsetWidth,
-        transform: `translateX(${item.offsetLeft}px)`,
-      });
     };
 
-    updateIndicator();
+    // Use a small delay to ensure DOM is ready on initial load/mount
+    const timeout = setTimeout(updateIndicator, 100);
     window.addEventListener("resize", updateIndicator);
-    return () => window.removeEventListener("resize", updateIndicator);
+
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("resize", updateIndicator);
+    };
   }, [activeLink]);
 
   useEffect(() => {
     AOS.init({ duration: 1500, easing: "linear", offset: 120, once: true });
   }, []);
 
+  // Sync active link with scroll position
   useEffect(() => {
     const onScroll = () => {
-      // Use a consistent threshold for section activation
-      const threshold = 150;
+      const scrollY = window.scrollY;
+      const threshold = 150; // Offset for detection
 
-      let current = LINKS[0].id;
+      let current = "home";
 
-      // Get all sections and find which one is most visible or crossing the threshold
-      for (const link of LINKS) {
-        const el = document.getElementById(link.id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          // If the top of the section is above the threshold, it might be the current one
+      // We check sections in reverse to find the one furthest down that's past the threshold
+      for (let i = LINKS.length - 1; i >= 0; i--) {
+        const section = document.getElementById(LINKS[i].id);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          // If the section's top is near the top of the viewport
           if (rect.top <= threshold) {
-            current = link.id;
+            current = LINKS[i].id;
+            break;
           }
         }
       }
 
-      setActiveLink(current);
+      if (current !== activeLink) {
+        setActiveLink(current);
+      }
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    // Run once after a short delay to ensure everything is mounted and GSAP has run
-    const timeoutId = setTimeout(onScroll, 100);
+    // Run once on mount to set initial active state
+    onScroll();
 
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      clearTimeout(timeoutId);
-    };
-  }, []);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [activeLink]);
 
-  const getLinkClasses = (link) => {
-    const isActive = activeLink === link;
-    return `text-sm md:text-base tracking-wider px-4 md:px-5 lg:px-6 py-2 rounded-full relative z-10 ${isActive ? "text-black" : "text-white hover:text-gray-300"}`;
+  const getLinkClasses = (linkId) => {
+    const isActive = activeLink === linkId;
+    return `text-sm md:text-base tracking-wider px-4 md:px-5 lg:px-6 py-2 rounded-full relative z-10 transition-colors duration-300 ${isActive ? "text-black font-semibold" : "text-white hover:text-gray-300"}`;
   };
+
   return (
-    <header data-aos="fade-down" data-aos-offset="120" data-aos-easing="linear" data-aos-delay="300" className="fixed top-[22px] left-0 right-0 z-20 flex items-center px-2 sm:px-4 lg:px-4 w-full justify-between md:justify-center">
+    <header data-aos="fade-down" data-aos-delay="300" className="fixed top-[22px] left-0 right-0 z-[100] flex items-center px-4 w-full justify-between md:justify-center">
       <nav className="hidden md:block">
-        <div className="rounded-full py-1 border border-white/30 bg-white/15 shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.2px]">
-          <ul ref={listRef} className="relative flex gap-2 lg:gap-2 m-0 p-1 list-none">
-            <span className="pointer-events-none absolute left-0 top-0 h-full rounded-2xl bg-white transition-[transform,width] duration-300 ease-out" style={indicatorStyle} />
+        <div className="rounded-full py-1 border border-white/20 bg-white/10 shadow-lg backdrop-blur-md">
+          <ul ref={listRef} className="relative flex gap-1 m-0 p-1 list-none">
+            {/* The Indicator Pill */}
+            <div className="absolute left-0 top-0 h-full rounded-full bg-white transition-all duration-300 ease-out" style={indicatorStyle} />
+
             {LINKS.map((link, index) => (
-              <li key={link.id} ref={(el) => (itemRefs.current[index] = el)} className="text-center">
-                <a href={`#${link.id}`} onClick={() => setActiveLink(link.id)} className={`${getLinkClasses(link.id)} font-medium cursor-pointer`}>
+              <li key={link.id} ref={(el) => (itemRefs.current[index] = el)} className="relative">
+                <a href={`#${link.id}`} onClick={() => setActiveLink(link.id)} className={getLinkClasses(link.id)}>
                   {link.label}
                 </a>
               </li>
@@ -93,16 +105,15 @@ const Header = () => {
           </ul>
         </div>
       </nav>
-      <button className="md:hidden text-3xl p-2 z-50 ml-auto" aria-label="Toggle menu" aria-expanded={isMenuOpen} aria-controls="mobile-nav" onClick={() => setIsMenuOpen((open) => !open)}>
+
+      {/* Mobile Menu Button */}
+      <button className="md:hidden text-3xl text-white p-2 z-[110] relative" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
         <i className={isMenuOpen ? "bx bx-x" : "bx bx-menu"}></i>
       </button>
-      <div
-        id="mobile-nav"
-        className={`md:hidden absolute left-4 right-4 top-full mt-2 rounded-2xl border border-white/30 bg-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[8.2px] transition-all duration-300 ${
-          isMenuOpen ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-2"
-        }`}
-      >
-        <ul className="flex flex-col gap-2 p-4 list-none">
+
+      {/* Mobile Navigation */}
+      <div className={`md:hidden fixed inset-0 bg-black/90 backdrop-blur-xl transition-all duration-300 z-[105] flex items-center justify-center ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}>
+        <ul className="flex flex-col gap-8 text-center list-none">
           {LINKS.map((link) => (
             <li key={link.id}>
               <a
@@ -111,7 +122,7 @@ const Header = () => {
                   setActiveLink(link.id);
                   setIsMenuOpen(false);
                 }}
-                className={`block w-full px-4 py-2 rounded-2xl text-base tracking-wider ${activeLink === link.id ? "bg-white text-black" : "text-white hover:text-gray-300"}`}
+                className={`text-2xl font-bold tracking-widest ${activeLink === link.id ? "text-orange-400" : "text-white"}`}
               >
                 {link.label}
               </a>
@@ -122,4 +133,5 @@ const Header = () => {
     </header>
   );
 };
+
 export default Header;
