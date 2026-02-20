@@ -212,7 +212,7 @@ const Skills = () => {
   return (
     <section ref={sectionRef} id="skills" className="relative w-full min-h-screen scroll-mt-24 px-8 sm:px-12 lg:px-24 py-20 lg:py-32">
       <div className="w-full max-w-5xl mx-auto">
-        <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-14">
+        <h2 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl font-bold text-center mb-14">
           <span className="text-white">My </span>
           <span className="text-orange-400">Skills</span>
         </h2>
@@ -227,18 +227,18 @@ const Skills = () => {
               <div className="text-4xl sm:text-5xl transition-transform duration-300 group-hover:scale-110" style={{ color: skill.color }}>
                 {skill.svg ? skill.svg : <i className={`bx ${skill.icon}`}></i>}
               </div>
-              <span className="text-xs sm:text-sm text-white/70 font-medium text-center group-hover:text-white/90 transition-colors duration-300">{skill.name}</span>
+              <span className="text-sm sm:text-base text-white/70 font-medium text-center group-hover:text-white/90 transition-colors duration-300">{skill.name}</span>
             </div>
           ))}
         </div>
 
         <div ref={githubRef} className="mt-10 sm:mt-12 max-w-4xl mx-auto rounded-2xl border border-orange-500/20 bg-white/5 backdrop-blur-md shadow-[0_0_30px_-10px_rgba(249,115,22,0.35)] p-5 sm:p-6">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h3 className="text-sm sm:text-base font-semibold text-white">GitHub Contributions</h3>
-              <p className="text-xs sm:text-sm text-white/60">Last 12 months activity</p>
+            <div className="text-center sm:text-left">
+              <h3 className="text-xl sm:text-2xl font-semibold text-white">GitHub Contributions</h3>
+              <p className="text-base sm:text-lg text-white/60">Last 12 months activity</p>
             </div>
-            <div className="flex items-center gap-1 text-[10px] sm:text-xs text-white/60">
+            <div className="flex items-center justify-center sm:justify-end gap-1 text-[10px] sm:text-xs text-white/60">
               <span>Less</span>
               <span className="h-2.5 w-2.5 rounded bg-white/5" />
               <span className="h-2.5 w-2.5 rounded bg-orange-400/30" />

@@ -84,7 +84,7 @@ const Header = () => {
 
   const getLinkClasses = (linkId) => {
     const isActive = activeLink === linkId;
-    return `text-sm md:text-base tracking-wider px-4 md:px-5 lg:px-6 py-2 rounded-full relative z-10 transition-colors duration-300 ${isActive ? "text-black font-semibold" : "text-white hover:text-gray-300"}`;
+    return `text-base md:text-lg tracking-wider px-4 md:px-5 lg:px-6 py-2 rounded-full relative z-10 transition-colors duration-300 ${isActive ? "text-black font-semibold" : "text-white hover:text-gray-300"}`;
   };
 
   return (

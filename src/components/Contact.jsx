@@ -60,12 +60,12 @@ const Contact = () => {
   return (
     <section ref={sectionRef} id="contact" className="relative w-full min-h-screen flex items-center justify-center scroll-mt-24 px-8 sm:px-12 lg:px-24 py-20 lg:py-32">
       <div className="max-w-4xl mx-auto">
-        <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6">
+        <h2 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl font-bold text-center mb-8">
           <span className="text-white">Let's Work </span>
           <span className="text-orange-400">Together</span>
         </h2>
 
-        <p ref={descRef} className="text-sm sm:text-base text-center text-white/70 leading-relaxed max-w-2xl mx-auto mb-12">
+        <p ref={descRef} className="text-xl sm:text-2xl lg:text-xl text-center text-white/70 leading-relaxed max-w-3xl mx-auto mb-14">
           I'm currently open to <span className="text-orange-400 font-medium">internship</span>, <span className="text-orange-400 font-medium">freelance</span>, and{" "}
           <span className="text-orange-400 font-medium">full-time opportunities</span>. If you're looking for a fullstack developer who builds scalable and high-performance web applications, let's connect.
         </p>

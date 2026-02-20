@@ -80,12 +80,12 @@ const About = () => {
         {/* Right Column — Text */}
         <div className="flex-1 text-left max-w-full ">
           {/* Section Title */}
-          <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl font-bold text-left mb-6 translate-y-[50px]">
+          <h2 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl font-bold text-center lg:text-left mb-6 translate-y-[50px]">
             <span className="text-white">About Me</span>
           </h2>
 
-          <div ref={textRef} className="">
-            <p className="text-sm sm:text-base md:text-[1rem] text-white/80 leading-relaxed">
+          <div ref={textRef} className="mx-auto lg:mx-0">
+            <p className="text-xl sm:text-2xl lg:text-xl text-white/80 leading-relaxed text-center lg:text-left">
               Hi, I'm <span className="text-orange-400 font-semibold">Muhammad Akbar Pratama Hantoro</span>, an Informatics undergraduate with a strong interest in web development and modern technologies. I focus on building scalable web
               applications using <span className="text-white font-medium">React</span> for the frontend and <span className="text-white font-medium">Laravel</span> for backend APIs, combining performance, structure, and user experience in
               every project.
@@ -93,10 +93,10 @@ const About = () => {
           </div>
 
           {/* Stats */}
-          <div ref={statsRef} className="flex flex-col sm:flex-row items-center justify-start gap-6 sm:gap-8 mt-8 [&>*]:translate-y-[40px]">
+          <div ref={statsRef} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-8 sm:gap-12 mt-10 [&>*]:translate-y-[40px]">
             <div className="flex items-center gap-3">
-              <span className="text-3xl sm:text-4xl font-bold text-orange-400">5+</span>
-              <span className="text-sm sm:text-base text-white/70 leading-tight text-left">
+              <span className="text-4xl sm:text-5xl font-bold text-orange-400">5+</span>
+              <span className="text-base sm:text-lg text-white/70 leading-tight text-left">
                 Completed
                 <br />
                 Projects
@@ -106,8 +106,8 @@ const About = () => {
             <div className="hidden sm:block h-10 w-px bg-white/15"></div>
 
             <div className="flex items-center gap-3">
-              <span className="text-3xl sm:text-4xl font-bold text-orange-400">1+</span>
-              <span className="text-sm sm:text-base text-white/70 leading-tight text-left">
+              <span className="text-4xl sm:text-5xl font-bold text-orange-400">1+</span>
+              <span className="text-base sm:text-lg text-white/70 leading-tight text-left">
                 Years of
                 <br />
                 Experience
@@ -116,7 +116,7 @@ const About = () => {
           </div>
 
           {/* Download CV Button */}
-          <div ref={btnRef} className="flex justify-start mt-7 translate-y-[30px]">
+          <div ref={btnRef} className="flex justify-center lg:justify-start mt-10 translate-y-[30px]">
             <a
               href="/cv.pdf"
               download

@@ -107,39 +107,49 @@ const ProjectCard = ({ project }) => {
         </motion.div>
 
         {/* Bottom: Content (Takes remaining space) */}
-        <div className="relative z-10 w-full flex-1 p-4 md:p-6 flex flex-col justify-between gap-1.5 overflow-y-auto custom-scrollbar">
-          <div className="flex flex-col gap-1 md:gap-1.5">
-            <div>
-              <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} className="text-orange-400 font-medium tracking-widest text-[9px] md:text-[10px] uppercase">
+        <div className="relative z-10 w-full flex-1 p-6 md:p-8 flex flex-col justify-between gap-4 overflow-y-auto custom-scrollbar text-center lg:text-left items-center lg:items-start">
+          <div className="flex flex-col gap-2 md:gap-4 w-full items-center lg:items-start">
+            <div className="w-full">
+              <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} className="text-orange-400 font-medium tracking-widest text-xs md:text-sm uppercase block text-center lg:text-left">
                 {project.subtitle}
               </motion.span>
-              <motion.h3 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="text-xl md:text-3xl font-bold text-white mt-0 md:mt-0.5 leading-tight">
+              <motion.h3
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl font-bold text-white mt-1 md:mt-2 leading-tight text-center lg:text-left"
+              >
                 {project.title}
               </motion.h3>
             </div>
 
-            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="text-gray-400 text-[10px] md:text-sm leading-relaxed line-clamp-3 md:line-clamp-4">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-gray-400 text-sm sm:text-lg md:text-xl lg:text-base leading-relaxed line-clamp-3 md:line-clamp-4 text-center lg:text-left"
+            >
               {project.description}
             </motion.p>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="flex flex-wrap gap-1 pt-0.5">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="flex flex-wrap gap-2 pt-1 justify-center lg:justify-start">
               {project.tech.map((t, i) => (
-                <span key={i} className="px-2 py-0.5 text-[9px] md:text-[11px] font-medium rounded-full bg-white/5 border border-white/10 text-white/70">
+                <span key={i} className="px-3 py-1 text-xs sm:text-sm md:text-base font-medium rounded-full bg-white/5 border border-white/10 text-white/70">
                   {t}
                 </span>
               ))}
             </motion.div>
           </div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="flex items-center gap-3 mt-auto">
-            <a href={project.live} target="_blank" rel="noopener noreferrer" className="group/btn relative px-4 py-2 bg-orange-500 text-white rounded-full font-semibold overflow-hidden transition-all hover:pr-8 text-xs md:text-sm">
-              <span className="relative z-10 flex items-center gap-1.5">
-                Live Preview <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4" />
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="flex items-center gap-4 mt-auto justify-center lg:justify-start w-full">
+            <a href={project.live} target="_blank" rel="noopener noreferrer" className="group/btn relative px-6 py-3 bg-orange-500 text-white rounded-full font-semibold overflow-hidden transition-all hover:pr-10 text-base md:text-lg">
+              <span className="relative z-10 flex items-center gap-2">
+                Live Preview <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
               </span>
-              <ArrowRight className="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 group-hover/btn:opacity-100 transition-all w-3.5 h-3.5 md:w-4 md:h-4" />
+              <ArrowRight className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover/btn:opacity-100 transition-all w-4 h-4 md:w-5 md:h-5" />
             </a>
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/5 border border-white/10 rounded-full text-white hover:bg-white/10 transition-colors">
-              <Github className="w-4 h-4 md:w-5 md:h-5" />
+            <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 border border-white/10 rounded-full text-white hover:bg-white/10 transition-colors">
+              <Github className="w-5 h-5 md:w-6 md:h-6" />
             </a>
           </motion.div>
         </div>

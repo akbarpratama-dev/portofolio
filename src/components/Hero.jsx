@@ -115,17 +115,17 @@ const Hero = () => {
         }}
       />
 
-      <div ref={contentRef} className="text-left mx-0 max-w-3xl flex flex-col gap-4 lg:gap-6 z-10">
-        <WordPullUp key={TITLES[titleIndex]} words={TITLES[titleIndex]} className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white font-[600] text-left leading-normal" />
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-orange-400 font-[500] leading-tight">
+      <div ref={contentRef} className="text-center lg:text-left mx-auto lg:mx-0 max-w-3xl flex flex-col gap-6 lg:gap-8 z-10 items-center lg:items-start">
+        <WordPullUp key={TITLES[titleIndex]} words={TITLES[titleIndex]} className="text-2xl sm:text-3xl lg:text-3xl text-white font-[600] text-center lg:text-left leading-normal" />
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl text-orange-400 font-[500] leading-tight text-center lg:text-left">
           Hello, I'm
           <br />
           <span className="text-white font-[600] mb-8">Akbar Pratama</span>
         </h1>
-        <p className="text-base sm:text-lg md:text-xl lg:text-xl text-white/80 leading-relaxed max-w-[30rem] mx-0">
+        <p className="text-xl sm:text-2xl lg:text-xl text-white/80 leading-relaxed max-w-[35rem] mx-auto lg:mx-0 text-center lg:text-left">
           I turn complex ideas into seamless, high-impact web experiences by building modern, scalable, and high-performance web applications using React and Laravel.
         </p>
-        <div className="flex items-center gap-5 mt-4 justify-start">
+        <div className="flex items-center gap-5 mt-4 justify-center lg:justify-start">
           <a
             href="https://github.com/akbarpratama-dev"
             target="_blank"
