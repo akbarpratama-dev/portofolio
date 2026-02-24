@@ -88,49 +88,71 @@ const Header = () => {
   };
 
   return (
-    <header data-aos="fade-down" data-aos-delay="300" className="fixed top-[22px] left-0 right-0 z-[100] flex items-center px-4 w-full justify-between md:justify-center">
-      <nav className="hidden md:block">
-        <div className="rounded-full py-1 border border-white/20 bg-white/10 shadow-lg backdrop-blur-md">
-          <ul ref={listRef} className="relative flex gap-1 m-0 p-1 list-none">
-            {/* The Indicator Pill */}
-            <div className="absolute left-0 top-0 h-full rounded-full bg-white transition-all duration-300 ease-out" style={indicatorStyle} />
+    <>
+      <header data-aos="fade-down" data-aos-delay="300" className="fixed top-[22px] left-0 right-0 z-[100] flex items-center px-4 w-full justify-between md:justify-center">
+        <nav className="hidden md:block">
+          <div className="rounded-full py-1 border border-white/20 bg-white/10 shadow-lg backdrop-blur-md">
+            <ul ref={listRef} className="relative flex gap-1 m-0 p-1 list-none">
+              {/* The Indicator Pill */}
+              <div className="absolute left-0 top-0 h-full rounded-full bg-white transition-all duration-300 ease-out" style={indicatorStyle} />
 
-            {LINKS.map((link, index) => (
-              <li key={link.id} ref={(el) => (itemRefs.current[index] = el)} className="relative">
-                <a href={`#${link.id}`} onClick={() => setActiveLink(link.id)} className={getLinkClasses(link.id)}>
+              {LINKS.map((link, index) => (
+                <li key={link.id} ref={(el) => (itemRefs.current[index] = el)} className="relative">
+                  <a href={`#${link.id}`} onClick={() => setActiveLink(link.id)} className={getLinkClasses(link.id)}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+
+        {/* Mobile Menu Button */}
+        <div className="flex md:hidden w-full justify-end">
+          <button
+            className="rounded-full p-2.5 border border-white/20 bg-white/10 shadow-lg backdrop-blur-md text-white text-2xl z-[110] relative transition-all duration-300 hover:bg-white/20 active:scale-95"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <i className={isMenuOpen ? "bx bx-x" : "bx bx-menu"}></i>
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Navigation Backdrop */}
+      <div className={`md:hidden fixed inset-0 bg-black/40 transition-opacity duration-300 z-[104] ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`} onClick={() => setIsMenuOpen(false)} />
+
+      {/* Mobile Navigation - Glassmorphism Panel */}
+      <div className={`md:hidden fixed top-[22px] right-4 left-4 z-[105] transition-all duration-300 ease-out ${isMenuOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4 pointer-events-none"}`}>
+        <div className="rounded-2xl py-6 px-6 border border-white/20 bg-white/10 shadow-lg backdrop-blur-xl">
+          {/* Close Button */}
+          <div className="flex justify-end mb-4">
+            <button className="text-white/70 hover:text-white transition-colors duration-300 flex items-center gap-1.5 text-sm tracking-wide" onClick={() => setIsMenuOpen(false)}>
+              <span className="text-xs font-medium uppercase tracking-[0.15em]">Close</span>
+              <i className="bx bx-x text-xl"></i>
+            </button>
+          </div>
+
+          {/* Navigation Links */}
+          <ul className="flex flex-col gap-1 list-none">
+            {LINKS.map((link) => (
+              <li key={link.id}>
+                <a
+                  href={`#${link.id}`}
+                  onClick={() => {
+                    setActiveLink(link.id);
+                    setIsMenuOpen(false);
+                  }}
+                  className={`block text-lg font-semibold tracking-wider px-4 py-3 rounded-xl transition-all duration-300 ${activeLink === link.id ? "bg-white text-black" : "text-white hover:bg-white/10"}`}
+                >
                   {link.label}
                 </a>
               </li>
             ))}
           </ul>
         </div>
-      </nav>
-
-      {/* Mobile Menu Button */}
-      <button className="md:hidden text-3xl text-white p-2 z-[110] relative" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
-        <i className={isMenuOpen ? "bx bx-x" : "bx bx-menu"}></i>
-      </button>
-
-      {/* Mobile Navigation */}
-      <div className={`md:hidden fixed inset-0 bg-black/90 backdrop-blur-xl transition-all duration-300 z-[105] flex items-center justify-center ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}>
-        <ul className="flex flex-col gap-8 text-center list-none">
-          {LINKS.map((link) => (
-            <li key={link.id}>
-              <a
-                href={`#${link.id}`}
-                onClick={() => {
-                  setActiveLink(link.id);
-                  setIsMenuOpen(false);
-                }}
-                className={`text-2xl font-bold tracking-widest ${activeLink === link.id ? "text-orange-400" : "text-white"}`}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
       </div>
-    </header>
+    </>
   );
 };
 
